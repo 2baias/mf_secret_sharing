@@ -17,6 +17,8 @@ def create_public_data_broken(M, num_senders, r):
         basis_coeffs.append(coeff)
     return (basis_coeffs, B, r)
 
+#in this version we only publish part of the modular forms, the remaining
+#coefficient (for the modular forms basis) is used in the voting
 def create_public_data(M, num_senders, r):
     st_bd = M.sturm_bound()
     if r < st_bd:
@@ -69,6 +71,9 @@ def send_to_auditor(vote, sender, auditor, pub):
     coeff_audit = sum([basis_coeffs[ix-1]*basis[ix].coefficients(auditor+1)[auditor] for ix in range(1,len(basis))])
     vote_coeff_r = basis[0].coefficients(r+1)[r]
     vote_ff = R(vote)
+    #coefficient at prec `auditor` of
+    #(-c(c1*f1+c2*f2;r) + vote) * c(f0;r)^(-1) * f0 + c1*f1+c2*f2
+    #note that it at precision r is exactly `vote`
     return (-coeff_r+vote_ff)*vote_coeff_r^(-1)*basis[0].coefficients[auditor+1][auditor]+coeff_audit
 
 def reconstruct(sender, from_auditors, pub):
