@@ -15,7 +15,7 @@ def create_public_data(M, num_senders, r):
     for ix in range(0,num_senders):
         while True:
             coeff = [R.random_element() for ix in range(1,len(B))]
-            fe_coeff_r = sum([coeff[ix-1]*B[ix].coefficients(r+1)[r] for ix in range(1,len(B))])
+            fe_coeff_r = sum([coeff[ix-1]*B[ix].coefficients([r])[0] for ix in range(1,len(B))])
             if fe_coeff_r != R.zero():
                 break
         basis_coeffs.append(coeff)
