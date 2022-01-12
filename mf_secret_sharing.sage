@@ -81,3 +81,6 @@ for auditor in range(0,len(auditors)):
     for sender in range(0,3):
         #need id because order is important, and comms might be async
         sender_recv[sender].append((auditor,auditors[auditor]))
+
+for sender in range(0,3):
+    print(reconstruct(sender, sender_recv[sender], pub))
