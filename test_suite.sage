@@ -37,4 +37,5 @@ def runtests_random_r():
             except ValueError as err:
                 print("ValueError; {0}".format(err))
             except RuntimeError as err:
+                #this is BAD!
                 print("RuntimeError; {0}".format(err))
