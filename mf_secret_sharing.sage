@@ -46,16 +46,26 @@ def reconstruct(sender, from_auditors, pub):
     basis = pub[1]
     r = pub[2]
     M = basis[0].parent()
+    R = M.base_ring()
     if sender < 0 or sender >= len(basis_coeffs):
         raise ValueError("Sender id %s is invalid."%sender)
-    if len(from_auditors) != M.sturm_bound():
+    if len(from_auditors) != (M.sturm_bound()+1):
         raise ValueError("Incorrect number of auditors.")
-    #pointless, but serves as a reminder that fsigma is constructed from
-    #what the auditors sent
-    fsigma = [from_auditor for from_auditor in from_auditors]
-    #now we perform Gaußian elimination
-    #let's do it by hand first
-    return 0
+    #create fsigma, recall that it isn't necessarily received in order
+    fsigma = [R.zero() for from_auditor in from_auditors]
+    for aud_pair in from_auditors:
+        fsigma[aud_pair[0]] = aud_pair[1]
+    cols = [b.coefficients(range(0,M.sturm_bound()+1)) for b in basis]
+    cols.append(fsigma)
+    coeff_matrix = Matrix(cols).transpose()
+    if mat.rank() != M.dimension():
+        raise RuntimeError("Could not reconstruct modular form.")
+    coeff_matrix = coeff_matrix.echelon_form()
+    coeff_mfs = [coeff_matrix[ix,M.dimension()] for ix in range(0,len(basis))]
+    #extract `r`th coefficient of every modular form
+    basis_coeff_r = [b.coefficients([r])[0] for b in basis]
+    #multiply with coefficients computed via row reduction
+    return sum([coeff_mfs[ix]*basis_coeff_r[ix] for ix in range(0,len(basis))])
 
 R = GF(7)
 M = ModularForms(29, 2, base_ring=R)
