@@ -28,6 +28,8 @@ def create_public_data(M, num_senders, r):
         raise ValueError("%s is less than the Sturm bound %s"%(r,st_bd))
     B = M.basis()
     R = M.base_ring()
+    if num_senders >= R.cardinality():
+        raise ValueError("%s cannot contain all different vote sums."%R)
     basis_coeffs = []
     coeff = []
     if B[0].coefficients(r+1)[r] == R.zero():
@@ -78,7 +80,7 @@ def reconstruct(sender, from_auditors, pub):
     cols = [b.coefficients(range(0,M.sturm_bound()+1)) for b in basis]
     cols.append(fsigma)
     coeff_matrix = Matrix(cols).transpose()
-    if mat.rank() != M.dimension():
+    if coeff_matrix.rank() != M.dimension():
         raise RuntimeError("Could not reconstruct modular form.")
     coeff_matrix = coeff_matrix.echelon_form()
     coeff_mfs = [coeff_matrix[ix,M.dimension()] for ix in range(0,len(basis))]
@@ -102,5 +104,6 @@ for auditor in range(0,len(auditors)):
         #need id because order is important, and comms might be async
         sender_recv[sender].append((auditor,auditors[auditor]))
 
+vote_sum = [R.zero() for ix in range(0,3)]
 for sender in range(0,3):
-    print(reconstruct(sender, sender_recv[sender], pub))
+    vote_sum[sender] = reconstruct(sender, sender_recv[sender], pub)
