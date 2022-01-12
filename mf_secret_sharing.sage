@@ -89,21 +89,21 @@ def reconstruct(sender, from_auditors, pub):
     #multiply with coefficients computed via row reduction
     return sum([coeff_mfs[ix]*basis_coeff_r[ix] for ix in range(0,len(basis))])
 
-R = GF(7)
-M = ModularForms(29, 2, base_ring=R)
-pub = ([[R(1),R(3)], [R(4), R(6)], [R(3), R(3)]], M.basis(), 100)
-votes = [0, 1, 1]
-auditors = [R.zero() for ix in range(0,M.sturm_bound()+1)]
-for sender in range(0,3):
-    for auditor in range(0,len(auditors)):
-        auditors[auditor] += send_to_auditor(votes[sender], sender, auditor, pub)
-
-sender_recv=[[],[],[]]
-for auditor in range(0,len(auditors)):
-    for sender in range(0,3):
-        #need id because order is important, and comms might be async
-        sender_recv[sender].append((auditor,auditors[auditor]))
-
-vote_sum = [R.zero() for ix in range(0,3)]
-for sender in range(0,3):
-    vote_sum[sender] = reconstruct(sender, sender_recv[sender], pub)
+#R = GF(7)
+#M = ModularForms(29, 2, base_ring=R)
+#pub = ([[R(1),R(3)], [R(4), R(6)], [R(3), R(3)]], M.basis(), 100)
+#votes = [0, 1, 1]
+#auditors = [R.zero() for ix in range(0,M.sturm_bound()+1)]
+#for sender in range(0,3):
+#    for auditor in range(0,len(auditors)):
+#        auditors[auditor] += send_to_auditor(votes[sender], sender, auditor, pub)
+#
+#sender_recv=[[],[],[]]
+#for auditor in range(0,len(auditors)):
+#    for sender in range(0,3):
+#        #need id because order is important, and comms might be async
+#        sender_recv[sender].append((auditor,auditors[auditor]))
+#
+#vote_sum = [R.zero() for ix in range(0,3)]
+#for sender in range(0,3):
+#    vote_sum[sender] = reconstruct(sender, sender_recv[sender], pub)
