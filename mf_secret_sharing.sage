@@ -32,7 +32,7 @@ def create_public_data(M, num_senders, r):
         raise ValueError("%s cannot contain all different vote sums."%R)
     basis_coeffs = []
     coeff = []
-    if B[0].coefficients(r+1)[r] == R.zero():
+    if B[0].coefficients([r])[0] == R.zero():
         raise ValueError("Invalid choice of r: %s"%r)
     for ix in range(0,num_senders):
         while True:
