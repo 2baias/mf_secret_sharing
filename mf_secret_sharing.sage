@@ -20,8 +20,6 @@
 #OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 #SOFTWARE.
 
-#This is merely a draft
-
 #in this version we only publish part of the modular forms, the remaining
 #coefficient (for the modular forms basis) is used in the voting
 def create_public_data(M, num_senders, r):
