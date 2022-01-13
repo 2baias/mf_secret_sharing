@@ -28,3 +28,5 @@ coefficients. This means that Shamir's criterion
 
 > but even complete knowledge of `k - 1` pieces reveals absolutely no
   information about `D` [ed: the vote sum]
+
+is violated.
