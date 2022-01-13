@@ -29,4 +29,5 @@ coefficients. This means that Shamir's criterion
 > but even complete knowledge of `k - 1` pieces reveals absolutely no
   information about `D` [ed: the vote sum]
 
-is violated.
+is violated. However, we can just replace the Sturm bound with the dimension
+instead. However, we need to prove that this is ok.
