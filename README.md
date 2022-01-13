@@ -1,6 +1,6 @@
 # mf_secret_sharing
 A mini-project to show that it is feasible to use modular forms instead of
-polynomials for secret sharing
+polynomials for secret sharing.
 
 ## Usage
 
@@ -21,3 +21,10 @@ All that needs to be done then is to change the `r`.
 
 Why $c(f_0;r)=0$ is bad will be explained in an upcoming formal write-up.
 
+## Todos
+
+We can actually reconstruct the vote by using less than "Sturm bound" number of
+coefficients. This means that Shamir's criterion
+
+> but even complete knowledge of `k - 1` pieces reveals absolutely no
+  information about `D` [ed: the vote sum]
