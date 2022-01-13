@@ -2,6 +2,8 @@ attach("mf_secret_sharing.sage")
 
 #this test FAILS!
 #from_auditors is (hopefully partial) list of (auditor_id, coeff)
+#we can actually restrict to public data with ``unique recon''
+#this becomes a criterion that can be investigated further
 def attack(from_auditors, pub):
     basis = pub[1]
     M = basis[0].parent()
